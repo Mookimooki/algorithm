@@ -1,9 +1,5 @@
 def solution(citations):
-    citations.sort(reverse= True)
-    temp = 0
-    for i, val in enumerate(citations, 1):
-        if i <= val: temp = i
-    return temp
+    return max(map(min, enumerate(sorted(citations, reverse=True), 1)))
 
 if __name__ == "__main__":
-	print(solution([0,0,0]))
+	print(solution([3, 0, 6, 1, 5]	))
