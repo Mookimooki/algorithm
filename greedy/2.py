@@ -1,25 +1,23 @@
-from  copy import deepcopy
-
-def recursive_sum(strCtn ,flag, idx, length):
-    if idx >= len(flag):
-        idx = idx - len(flag)
-    elif idx < 0:
-        idx = idx + len(flag)
-
-    strCtn[idx] = 0
-    flag[idx] += 1
-
-    if max(strCtn) < 1 :
-        return length
-    if flag[idx] > 2:
-        return 40
-
-    return min(recursive_sum(deepcopy(strCtn), deepcopy(flag), idx - 1, length + 1), recursive_sum(deepcopy(strCtn), deepcopy(flag), idx + 1, length + 1))
-
 def solution(name):
-    strCtn = list(map(lambda x: min(ord(x)-65, 91-ord(x)), name))
-    if min(strCtn) > 0:
-        return sum(strCtn) + len(strCtn) - 1 
-    return sum(strCtn) + recursive_sum(strCtn, [0]*len(name), 0, 0)
+    answer = 0
+    n = len(name)
 
-print(solution("ABAAAAABB"))
+    def alphabet_to_num(char):
+        num_char = [i for i in range(14)] + [j for j in range(12, 0, -1)]
+        return num_char[ord(char) - ord('A')]
+
+    for ch in name:
+        answer += alphabet_to_num(ch)
+
+    move = n - 1
+    for idx in range(n):
+        next_idx = idx + 1 #다음으로 알파벳을 바꿀 자리의 인덱스
+        while (next_idx < n) and (name[next_idx] == 'A'):
+            next_idx += 1
+        distance = min(idx, n - next_idx) # 시작점으로 부터 정방향 역방향의로의 거리
+        move = min(move, idx + n - next_idx + distance) # 끝자리 index = move, 
+
+    answer += move
+    return move
+
+print(solution("BBAAAAAAABBB"))
