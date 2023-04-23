@@ -21,6 +21,14 @@ def solution(s):
         
     return True
 
+def solution2(s):
+    pair = 0
+    for x in s:
+        if pair < 0: break
+        pair = pair + 1 if x == "(" else pair - 1
+    return pair == 0
+
+
 print(solution("()()"))
 print(solution("(())()"))
 print(solution(")()("))
