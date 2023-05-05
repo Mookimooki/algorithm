@@ -21,26 +21,30 @@ def solution1(people, limit):
     return answer
 
 def solution(people, limit):
-    people.sort(reverse = True)
-    answer = 0
+    people.sort()
+    rightIdx = len(people)
+    answer = 0   
+    leftIdx = 0
     
-    while len(people) > 0:
-        minWeight = people.pop()
+    while leftIdx < rightIdx:
+        minWeight = people[leftIdx]
         weightSum = minWeight
         answer += 1
-
-        while limit >= weightSum + minWeight and len(people) > 0:
-            weight = people.pop(0)
-            if weightSum + weight > limit:
+        while limit >= weightSum + minWeight and leftIdx < rightIdx:
+            rightIdx -= 1
+            if weightSum + people[rightIdx] > limit:
                 answer += 1
             else:
-                weightSum += weight
-                if limit < minWeight + weightSum:
-                    weightSum = 0
-                    break
+                weightSum = 0
+                break
+        leftIdx += 1
     
     return answer
 
-print(solution([70, 50, 80, 50], 100))  #3
-print(solution([70, 80, 50], 100))      #3
-# print(solution([50, 100, 100, 140, 180], 200))      #3
+print(solution([70, 50, 80, 50], 100))          #3
+print(solution([100, 50, 50], 100))             #2
+print(solution([70, 80, 50], 100))              #3
+print(solution([50, 100, 100, 140], 200))       #2
+print(solution([70, 50, 80, 50, 90, 40], 240))  #3
+print(solution([100, 100, 100, 100, 100], 100))          #5
+
