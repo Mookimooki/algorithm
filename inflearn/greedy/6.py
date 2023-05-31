@@ -1,11 +1,11 @@
 #https://cote.inflearn.com/contest/10/problem/09-06
 
-# n, numOfFriends = map(int, input().split())
+# n, numOfPairs = map(int, input().split())
 # friends = []
 
 # for m in range(n):
 #     input1, input2 = map(int, input().split())
-#     friend.append([input1, input2])
+#     friends.append([input1, input2])
 
 
 n = 9
@@ -30,4 +30,8 @@ for idx in range(numOfPairs):
 
 f1 = find(friends[numOfPairs][0])
 f2 = find(friends[numOfPairs][1])
-print(f1 == f2)
+
+if f1 == f2:
+    print('YES')
+else:
+    print('NO')
