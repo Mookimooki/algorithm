@@ -1,42 +1,27 @@
 #https://school.programmers.co.kr/learn/courses/30/lessons/42861
 import heapq
-import sys
 
 def solution(n, costs):
     bridges = [[False if col != row else 0 for col in range(n)] for row in range(n)]
     for bridge in costs:
         bridges[bridge[0]][bridge[1]] = bridges[bridge[1]][bridge[0]] = bridge[2]
 
-    dist = [sys.maxsize for i in range(n)]
-    visited = [False for i in range(n)]
-
-    minHeap = [(0, 0)]
-    dist[0] = 0
+    minHeap = [(0, 0, 0)]
+    visited = []
+    answer = 0
 
     while minHeap:
         temp = heapq.heappop(minHeap)
-        cost = temp[0]
-        node = temp[1]
-
-        if visited[node]: continue
-        visited[node] = True
-
-        dest = 0
-        while dest < n:
-            if visited[dest] != True and bridges[node][dest] != False:
-                heapq.heappush(minHeap, (bridges[node][dest], dest))
-                newCost = cost + bridges[node][dest]
-                if dist[dest] > newCost:
-                    dist[dest] = newCost
-                else:
-                    # print(node, dest, bridges[node][dest])
-                    bridges[node][dest] = bridges[dest][node] = False
-            dest += 1
-
-    answer = 0
-    for row in bridges:
-        answer += sum(row)
-    return answer // 2
+        if temp[1] in visited and temp[2] in visited: continue
+        answer = answer + temp[0]
+        for index in range(2):
+            if temp[index+1] not in visited:
+                for idx, cost in enumerate(bridges[temp[index+1]]):
+                    if cost != False and temp[index+1] != idx:
+                        heapq.heappush(minHeap, (cost, temp[index+1], idx))
+                visited.append(temp[index+1])
+            
+    return answer
 
 
 result = solution(4, [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]])
@@ -77,11 +62,3 @@ print(result, result == 8)
 
 result = solution(4, [[0,1,1],[0,2,2],[2,3,1]])
 print(result, result == 4)
-
-
-
-
-
-
-
-
