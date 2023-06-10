@@ -1,14 +1,14 @@
 #https://cote.inflearn.com/contest/10/problem/10-04
 
-# n = int(input())
-# rocks = []
+n = int(input())
+rocks = []
 
-# for i in range(n):
-#     s, h, w = map(int, input().split())
-#     rocks.append((s, h, w))
+for i in range(n):
+    s, h, w = map(int, input().split())
+    rocks.append((s, h, w))
 
-n = 5
-rocks = [[25, 3, 4],[4, 4, 6],[9, 2, 3],[16, 2, 5],[1, 5, 2]]
+# n = 5
+# rocks = [[25, 3, 4],[4, 4, 6],[9, 2, 3],[16, 2, 5],[1, 5, 2]]
     
 rocks.sort(key=lambda x: -x[0])
 dy = []
