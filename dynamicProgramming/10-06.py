@@ -8,18 +8,14 @@ for i in range(n):
 
 # n = 5
 # m = 20
-# problems = [[10,  5],[25, 12],[15, 8],[6, 3],[7, 4]]
-problems.sort(key=lambda x: x[1])
+# problems = [[10,  5],[25, 12],[15, 8],[6, 3],[7, 4]] # [점수, 시간]
 
-dy=[0 if x==0 else -1 for x in range(m+1)]
-def rec(minutes):
-    if minutes < problems[0][1]: 
-        return 0
-    if dy[minutes] < 0:
-        for prob in problems: # prob = (점수, 시간)
-            if minutes-prob[1] >= 0:
-                dy[minutes] = max(dy[minutes], rec(minutes-prob[1]) + prob[0])
-    return dy[minutes]
-    
-result = rec(m)
-print(result)
+dy=[0 for x in range(m+1)]
+result = []
+
+for problem in problems:
+    for i in range(m ,problem[1]-1, -1):
+        dy[i] = max(dy[i], dy[i-problem[1]] + problem[0])
+
+
+print(dy[m])
