@@ -29,8 +29,31 @@ def inCards(n, cards):
     #     else: return False
 
 
-print(solution([5,3,4,4], 2))
-print(solution([5,3,2,5], 2))
-print(solution([2,3,4,5], 3))
+def solution1(cards, slot_size):
+    cards.sort()
+    slots = [[cards.pop(0)]]
 
-print(solution([2,3,4,2,3,4], 3))
+    for card in cards:
+        flag = False
+
+        slotLen = len(slots)
+        for n in range(slotLen):
+            slot = slots[n]
+            if card - slot[-1] == 1:
+                if len(slot) < slot_size -1:
+                    slot.append(card)
+                else:
+                    del slots[n]
+                flag = True
+                break
+
+        if not flag:
+            slots.append([card])
+
+    return all(len(slot) == slot_size for slot in slots)
+
+print(solution1([5,3,4,4], 2))
+print(solution1([5,3,2,5], 2))
+print(solution1([2,3,4,5], 3))
+
+print(solution1([2,3,4,2,3,4], 3))
