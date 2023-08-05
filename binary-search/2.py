@@ -27,4 +27,9 @@ def solution(distance, rocks, n):
 # 정확성: 20.5
 # 합계: 20.5 / 100.0
 
-print(solution(25, [2, 14, 11, 21, 17], 2))
+# print(solution(25, [2, 14, 11, 21, 17], 2), 4)
+# print(solution(23, [3, 6, 9, 10, 14, 17], 2), 3)
+# print(solution(16, [4, 8, 11], 2), 8)
+# print(solution(16, [4, 8], 1), 8)
+print(solution(23, [3, 6, 9, 10, 14, 17], 2), 3)
+# print(solution(1000000000, [x+10 for x in range(50000, 0, -1)], 50000), 'tttt')
