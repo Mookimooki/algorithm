@@ -1,27 +1,30 @@
-from itertools import combinations
-
-def findMinDistance(way):
-    answer = way[-1]
-    for i in range(1, len(way)):
-        answer = min(answer , way[i] - way[i-1])
-    return answer
+import heapq
 
 def solution(distance, rocks, n):
     rocks.sort()
-    lt, rt = 1, distance - rocks[-1]
+    heap = []
+    length = len(rocks)
+    heapq.heappush(heap, (rocks[0], 0))
+    heapq.heappush(heap, (distance - rocks[-1], length))
+    for i in range(1, len(rocks)):
+        heapq.heappush(heap, (rocks[i]-rocks[i-1], i))
     
-    ways = tuple(map(lambda x: (0,) + x + (distance,), combinations(rocks, len(rocks) - n)))
-    # answer = 0
-    # while lt <= rt:
-    #     mid = (lt + rt)//2
-    #     if max(map(findMinDistance, ways)) >= mid:
-    #         answer = mid
-    #         rt = mid - 1
-    #     else:
-    #         lt = mid + 1
-    # return answer
-    return max(map(findMinDistance, ways))
-#정확성: 12.8
-#합계: 12.8 / 100.0
+    distanceByRocks = [rocks[0]] + [rocks[i+1]-rocks[i] for i in range(length-1)] + [distance - rocks[-1]] # i번째는 rocks[i]
+    
+    answer, idx = heapq.heappop(heap)
+    for _ in range(n):
+        distanceByRocks[idx] = -1
+        j = 1
+        while distanceByRocks[idx+j] < 0:
+            j+=1
+        distanceByRocks[idx+j] += answer 
+        while distanceByRocks[idx] != answer:
+            if distanceByRocks[idx] > 0:
+                heapq.heappush(heap, (distanceByRocks[idx], idx))
+            answer, idx = heapq.heappop(heap)
+    return answer
+
+# 정확성: 20.5
+# 합계: 20.5 / 100.0
 
 print(solution(25, [2, 14, 11, 21, 17], 2))
