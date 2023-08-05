@@ -21,5 +21,7 @@ def solution(distance, rocks, n):
     #         lt = mid + 1
     # return answer
     return max(map(findMinDistance, ways))
+#정확성: 12.8
+#합계: 12.8 / 100.0
 
 print(solution(25, [2, 14, 11, 21, 17], 2))
