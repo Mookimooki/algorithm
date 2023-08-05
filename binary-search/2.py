@@ -1,6 +1,6 @@
 import heapq
 
-def solution(distance, rocks, n):
+def solution1(distance, rocks, n):
     rocks.sort()
     heap = []
     length = len(rocks)
@@ -24,12 +24,33 @@ def solution(distance, rocks, n):
             answer, idx = heapq.heappop(heap)
     return answer
 
+def solution(distance, rocks, n):
+    rocks = sorted(rocks) + [distance]
+    
+    answer = 0
+    left, right = 1, distance
+    while (left <= right):
+        mid = int((left + right) / 2)
+        cnt = 0
+        prev = 0
+        for i in range(len(rocks)):
+            if (rocks[i] - prev < mid):
+                cnt += 1
+            else:
+                prev = rocks[i]
+        if cnt > n:
+            right = mid - 1
+        else:
+            left = mid + 1
+            answer = mid
+    return answer
+
 # 정확성: 20.5
 # 합계: 20.5 / 100.0
 
-# print(solution(25, [2, 14, 11, 21, 17], 2), 4)
-# print(solution(23, [3, 6, 9, 10, 14, 17], 2), 3)
-# print(solution(16, [4, 8, 11], 2), 8)
-# print(solution(16, [4, 8], 1), 8)
+print(solution(25, [2, 14, 11, 21, 17], 2), 4)
+print(solution(23, [3, 6, 9, 10, 14, 17], 2), 3)
+print(solution(16, [4, 8, 11], 2), 8)
+print(solution(16, [4, 8], 1), 8)
 print(solution(23, [3, 6, 9, 10, 14, 17], 2), 3)
 # print(solution(1000000000, [x+10 for x in range(50000, 0, -1)], 50000), 'tttt')
