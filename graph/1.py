@@ -1,21 +1,24 @@
 #https://school.programmers.co.kr/learn/courses/30/parts/14393
 
 def solution(n, edge):
-    graph = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    graph = [[] for _ in range(n+1)]
     for s, e in edge:
-        graph[s][e] = graph[e][s] = 1
+        graph[s].append(e)
+        graph[e].append(s)
         
-    visited = [False for _ in range(n+1)]
-    q = [1]
+    visited, disatance = [False for _ in range(n+1)], [0 for _ in range(n+1)]
     maxVal, maxCnt = 0, 0
+    
+    q = [1]
+    visited[1] = True
     
     while len(q) > 0:
         node = q.pop(0)        
-        for i in range(2, n+1):
-            if not visited[i] and graph[node][i] == 1:
-                visited[i] = True
-                val = graph[1][i] = graph[1][node] + 1
-                q.append(i)
+        for dest in graph[node]:
+            if not visited[dest]:
+                visited[dest] = True
+                val = disatance[dest] = disatance[node] + 1
+                q.append(dest)
                 
                 if maxVal < val: 
                     maxCnt = 1
