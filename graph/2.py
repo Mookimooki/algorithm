@@ -1,22 +1,27 @@
 #https://school.programmers.co.kr/learn/courses/30/lessons/49191
 
 def solution(n, results):
-    graph, first = [[] for _ in range(n+1)], [x+1 for x in range(n)]
-    for a, b in results:
-        graph[a].append(b)
-        if b in first: first.remove(b)
+    graph = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    
+    for winner, loser in results:
+        graph[winner][loser] = 1
+        graph[loser][winner] = -1
         
-    for i in first:
-        if len(graph[i]) == 0: graph[0].append(i)
+    def bfs(row, col, val):
+        for idx in range(1, n+1):
+            el = graph[col][idx]
+            if el != val: continue
+            graph[row][idx] = val
+            graph[idx][row] = -val
         
-    q, rank = [0], [0 for _ in range(n+1)]
-    while len(q) > 0:
-        winner = q.pop(0)
-        for loser in graph[winner]:
-            rank[loser] = rank[winner] + 1
-            q.append(loser)
-        
+    for row in range(1, n+1):
+        for col in range(1, n+1):
+            if graph[row][col] == 0: continue
+            bfs(row, col, graph[row][col])
+    
     answer = 0
+    for row in range(1, n+1):
+        if sum(map(abs, graph[row])) == n-1: answer += 1 
     return answer
 
 print(solution(5, [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]), 2)
