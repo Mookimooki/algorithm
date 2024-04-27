@@ -1,17 +1,29 @@
 import java.util.Scanner;
 
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
+    private String solution(String string){
+        char[] answer = string.toCharArray();
 
-        return answer;
+        int lt = 0, rt = string.length() - 1;
+        while (lt < rt){
+            if(!Character.isAlphabetic(answer[lt])) lt++;
+            if(!Character.isAlphabetic(answer[rt])) rt--;
+
+            if(Character.isAlphabetic(answer[lt]) && Character.isAlphabetic(answer[rt])){
+                char tmp = answer[lt];
+                answer[lt] = answer[rt];
+                answer[rt] = tmp;
+                lt++;
+                rt--;
+            }
+        }
+        return String.valueOf(answer);
     }
     public static void main(String[] args) {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
-        char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution(input, c));
+        System.out.println(main.solution(input));
     }
 }
