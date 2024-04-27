@@ -2,12 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     private String solution(String string){
-        String onlyAlphabeticString = "";
-        for(char ch: string.toLowerCase().toCharArray()){
-            if(Character.isAlphabetic(ch)) onlyAlphabeticString += ch;
-        }
-        if(onlyAlphabeticString.equals(
-                new StringBuilder(onlyAlphabeticString).reverse().toString())
+        string = string.toUpperCase().replaceAll("[^A-Z]", "");
+        if(string.equals(
+                new StringBuilder(string).reverse().toString())
         ) return "YES";
         return "NO";
     }
