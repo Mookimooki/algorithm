@@ -6,8 +6,8 @@ public class Main {
 
         for (int i = 0; i < cnt; i++) {
             String codeString = input.substring(i * 7, (i + 1) * 7)
-                    .replaceAll("#", "1")
-                    .replaceAll("\\*", "0");
+                    .replace('#', '1')
+                    .replace('*', '0');
             answer += (char) Integer.parseInt(codeString, 2);
         }
 
