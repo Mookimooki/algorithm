@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    private int solution1(String string, char c){
+    private int solution(String string, char c){
         int answer = 0;
 
         return answer;
@@ -12,6 +12,6 @@ public class Main {
         String input = scanner.next();
         char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution1(input, c));
+        System.out.println(main.solution(input, c));
     }
 }
