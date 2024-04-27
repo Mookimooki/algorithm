@@ -4,6 +4,12 @@ public class Main {
     private int solution1(String string, char c){
         int answer = 0;
 
+        string = string.toUpperCase();
+        c = Character.toUpperCase(c);
+
+        for(char ch: string.toCharArray()){
+            if(ch == c) answer ++;
+        }
         return answer;
     }
     public static void main(String[] args) {
