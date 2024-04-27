@@ -1,17 +1,14 @@
 import java.util.Scanner;
 
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
-
-        return answer;
+    private Integer solution(String string){
+        return Integer.parseInt(string.replaceAll("\\D", ""));
     }
     public static void main(String[] args) {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
-        char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution(input, c));
+        System.out.println(main.solution(input));
     }
 }
