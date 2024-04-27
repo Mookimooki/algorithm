@@ -1,17 +1,21 @@
 import java.util.Scanner;
 
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
+    private String solution(String string){
+        string = string.toUpperCase();
+        int i = 0, length = string.length();
+        while(i < length/2){
+            if(string.charAt(i) != string.charAt(length-i-1)) return "NO";
+            i++;
+        }
 
-        return answer;
+        return "YES";
     }
     public static void main(String[] args) {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
-        char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution(input, c));
+        System.out.println(main.solution(input));
     }
 }
