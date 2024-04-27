@@ -1,17 +1,24 @@
 import java.util.Scanner;
 
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
+    private String solution(int cnt, String input){
+        String answer = "";
+
+        for (int i = 0; i < cnt; i++) {
+            String codeString = input.substring(i * 7, (i + 1) * 7)
+                    .replaceAll("#", "1")
+                    .replaceAll("\\*", "0");
+            answer += (char) Integer.parseInt(codeString, 2);
+        }
 
         return answer;
     }
     public static void main(String[] args) {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
+        int cnt = scanner.nextInt();
         String input = scanner.next();
-        char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution(input, c));
+        System.out.println(main.solution(cnt, input));
     }
 }
