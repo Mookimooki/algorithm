@@ -2,22 +2,18 @@ import java.util.Scanner;
 
 public class Main {
     private String solution(String string){
-        char lastChar = string.charAt(0);
-        int lastChatLength = 1;
-        String answer = "" + lastChar;
+        String answer = "";
+        string += " ";
+        int length = 1;
 
-        for(int i = 1; i < string.length(); i++){
-            if(string.charAt(i) == lastChar) lastChatLength++;
+        for (int i = 0; i < string.length() - 1; i++ ){
+            if(string.charAt(i) == string.charAt(i+1)) length++;
             else{
-                if(lastChatLength != 1) {
-                    answer += lastChatLength;
-                    lastChatLength = 1;
-                }
-                lastChar = string.charAt(i);
-                answer += lastChar;
+                answer += string.charAt(i);
+                if(length > 1) answer += length;
+                length = 1;
             }
         }
-        if(lastChatLength != 1) answer += lastChatLength;
 
         return answer;
     }
