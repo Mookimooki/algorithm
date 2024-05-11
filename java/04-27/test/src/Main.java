@@ -1,17 +1,25 @@
-import java.util.Scanner;
-
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
-
-        return answer;
+    public int solution(int[] numbers, int target) {
+        return dfs(0, 0, numbers, target);
     }
+
+    public int dfs(int level, int sum, int[] numbers, int target) {
+        if (level == numbers.length) {
+            if(sum == target) return 1;
+            return 0;
+        }
+        return dfs(level + 1, sum + numbers[level], numbers, target) + dfs(level + 1, sum - numbers[level], numbers, target);
+    }
+
     public static void main(String[] args) {
         Main main = new Main();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
-        char c = scanner.next().charAt(0);
 
-        System.out.println(main.solution(input, c));
+        int[] numbers = new int[] {1, 1, 1, 1, 1};
+        int target = 3;
+        System.out.println(main.solution(numbers, target));
+
+        numbers = new int[] {4, 1, 2, 1};
+        target = 4;
+        System.out.println(main.solution(numbers, target));
     }
 }
