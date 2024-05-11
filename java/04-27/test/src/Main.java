@@ -1,17 +1,16 @@
-import java.util.Scanner;
-
 public class Main {
-    private int solution(String string, char c){
-        int answer = 0;
+    static int n = 33, r = 19;
+    static int[][] answer = new int[n+1][n+1];
 
-        return answer;
+    private int dfs(int n, int r){
+        if(answer[n][r] != 0) return answer[n][r];
+        if(r == 0 || n == r) return answer[n][r] = 1;
+        if(r == 1) return answer[n][r] = n;
+
+        return answer[n][r] = dfs(n-1, r-1) + dfs(n-1, r);
     }
     public static void main(String[] args) {
         Main main = new Main();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
-        char c = scanner.next().charAt(0);
-
-        System.out.println(main.solution(input, c));
+        System.out.println(main.dfs(n, r));
     }
 }
