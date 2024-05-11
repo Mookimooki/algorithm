@@ -1,17 +1,31 @@
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
-    private int solution(String string, char c){
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+
+        int s = 5;
+        int e = 14;
         int answer = 0;
 
-        return answer;
-    }
-    public static void main(String[] args) {
-        Main main = new Main();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
-        char c = scanner.next().charAt(0);
+        queue.add(s);
 
-        System.out.println(main.solution(input, c));
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i = 0; i < size; i++) {
+                s = queue.poll();
+
+                if(s == e) break;
+                if(s < 0 || s > e) continue;
+
+                queue.offer(s + 1);
+                queue.offer(s - 1);
+                queue.offer(s + 5);
+            }
+            if(s == e) break;
+            answer++;
+        }
+        System.out.println(answer);
     }
 }
