@@ -1,6 +1,14 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
+
+class Edge {
+    int dest;
+    int weight;
+
+    public Edge(int dest, int weight) {
+        this.dest = dest;
+        this.weight = weight;
+    }
+}
 
 public class Main {
     int[] findAndUnion;
@@ -29,6 +37,27 @@ public class Main {
 
         return answer;
     }
+
+    private int solution(List<List<Edge>> edges, int length){
+        int answer = 0;
+        boolean[] visited = new boolean[length+1];
+
+        PriorityQueue<Edge> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.weight));
+        pq.addAll(edges.get(1));
+        visited[1] = true;
+
+        while(!pq.isEmpty()){
+            Edge edge = pq.poll();
+
+            if(visited[edge.dest]) continue;
+            visited[edge.dest] = true;
+            answer += edge.weight;
+
+            pq.addAll(edges.get(edge.dest));
+        }
+
+        return answer;
+    }
     public static void main(String[] args) {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
@@ -37,12 +66,18 @@ public class Main {
         int e = scanner.nextInt();
 
         int[][] graph = new int[e][3];
-        for(int i = 0; i < e; i++) {
-            graph[i][0] = scanner.nextInt();
-            graph[i][1] = scanner.nextInt();
-            graph[i][2] = scanner.nextInt();
-        }
+        List<List<Edge>> edges = new ArrayList<>();
+        for(int i = 0; i <= v; i++)
+            edges.add(new ArrayList<>());
 
-        System.out.println(main.solution(graph, v));
+
+        for(int i = 0; i < e; i++) {
+            int a = scanner.nextInt();
+            int b = scanner.nextInt();
+            int c = scanner.nextInt();
+            edges.get(a).add(new Edge(b, c));
+            edges.get(b).add(new Edge(a, c));
+        }
+        System.out.println(main.solution(edges, v));
     }
 }
